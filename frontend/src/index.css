@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  background-color: #f3e9ce;
+  color: #241b14;
+}
+
+::selection {
+  background-color: #d9ae63;
+  color: #241b14;
+}
+
+.arch-divider {
+  width: 44px;
+  height: 3px;
+  background: linear-gradient(90deg, #6e1b1b, #b9812e);
+  border-radius: 2px;
+}
+
+*:focus-visible {
+  outline: 2px solid #6e1b1b;
+  outline-offset: 2px;
+}
