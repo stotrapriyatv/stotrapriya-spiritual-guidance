@@ -28,6 +28,7 @@ async def submit_request(request: Request, payload: GuidanceRequestCreate, db: S
             reference_number=reference_number,
             full_name=payload.full_name,
             mobile_number=payload.mobile_number,
+            place=payload.place,
             male_deity=payload.male_deity,
             female_deity=payload.female_deity,
         )

@@ -12,6 +12,7 @@ export function Request() {
 
   const [fullName, setFullName] = useState("");
   const [mobileNumber, setMobileNumber] = useState("");
+  const [place, setPlace] = useState("");
   const [maleDeity, setMaleDeity] = useState("");
   const [femaleDeity, setFemaleDeity] = useState("");
   const [turnstileToken, setTurnstileToken] = useState("");
@@ -22,7 +23,7 @@ export function Request() {
     e.preventDefault();
     setError("");
 
-    if (!fullName || !mobileNumber || !maleDeity || !femaleDeity) {
+    if (!fullName.trim() || !mobileNumber.trim() || !place.trim() || !maleDeity.trim() || !femaleDeity.trim()) {
       setError(t("form.error.required"));
       return;
     }
@@ -34,10 +35,11 @@ export function Request() {
     setSubmitting(true);
     try {
       const result = await api.submitRequest({
-        full_name: fullName,
-        mobile_number: mobileNumber,
-        male_deity: maleDeity,
-        female_deity: femaleDeity,
+        full_name: fullName.trim(),
+        mobile_number: mobileNumber.trim(),
+        place: place.trim(),
+        male_deity: maleDeity.trim(),
+        female_deity: femaleDeity.trim(),
         turnstile_token: turnstileToken,
       });
       navigate("/submitted", { state: { referenceNumber: result.reference_number } });
@@ -66,6 +68,7 @@ export function Request() {
           onChange={setMobileNumber}
           type="tel"
         />
+        <Field label={t("form.place")} value={place} onChange={setPlace} />
         <Field label={t("form.maleDeity")} value={maleDeity} onChange={setMaleDeity} />
         <Field label={t("form.femaleDeity")} value={femaleDeity} onChange={setFemaleDeity} />
 

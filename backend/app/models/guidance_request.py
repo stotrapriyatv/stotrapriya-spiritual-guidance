@@ -23,6 +23,7 @@ class GuidanceRequest(Base):
     reference_number: Mapped[str] = mapped_column(String(32), unique=True, index=True)
     full_name: Mapped[str] = mapped_column(String(200))
     mobile_number: Mapped[str] = mapped_column(String(20))
+    place: Mapped[str] = mapped_column(String(200))
     male_deity: Mapped[str] = mapped_column(String(200))
     female_deity: Mapped[str] = mapped_column(String(200))
     status: Mapped[RequestStatus] = mapped_column(

@@ -35,6 +35,7 @@ async function request<T>(path: string, options: RequestInit = {}, token?: strin
 export interface GuidanceRequestPayload {
   full_name: string;
   mobile_number: string;
+  place: string;
   male_deity: string;
   female_deity: string;
   turnstile_token: string;

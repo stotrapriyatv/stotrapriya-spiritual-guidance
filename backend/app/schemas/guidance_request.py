@@ -8,6 +8,7 @@ from app.models.guidance_request import RequestStatus
 class GuidanceRequestCreate(BaseModel):
     full_name: str = Field(min_length=2, max_length=200)
     mobile_number: str = Field(min_length=7, max_length=20)
+    place: str = Field(min_length=1, max_length=200)
     male_deity: str = Field(min_length=1, max_length=200)
     female_deity: str = Field(min_length=1, max_length=200)
     turnstile_token: str
@@ -20,7 +21,7 @@ class GuidanceRequestCreate(BaseModel):
             raise ValueError("Mobile number must contain only digits")
         return cleaned
 
-    @field_validator("full_name", "male_deity", "female_deity")
+    @field_validator("full_name", "place", "male_deity", "female_deity")
     @classmethod
     def strip_text(cls, v: str) -> str:
         return v.strip()
@@ -45,6 +46,7 @@ class GuidanceRequestDetail(BaseModel):
     reference_number: str
     full_name: str
     mobile_number: str
+    place: str
     male_deity: str
     female_deity: str
     status: RequestStatus

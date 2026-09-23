@@ -17,7 +17,7 @@
 
   "steps.title": "How it works",
   "steps.1.title": "Submit your details",
-  "steps.1.body": "Share your name, mobile number, and your chosen deities through a short private form.",
+  "steps.1.body": "Share your name, mobile number, place, and your chosen deities through a short private form.",
   "steps.2.title": "Received privately",
   "steps.2.body": "Your information reaches only the Spiritual Guidance Team — nothing is made public.",
   "steps.3.title": "The team reviews it",
@@ -29,10 +29,10 @@
   "note.body": "Please provide the requested details only. Your information is submitted privately to the Spiritual Guidance Team. If the team considers that your presence is required for personal spiritual guidance, you will be contacted using the mobile number provided.",
 
   "goddess.title": "Goddess Tripurasundari",
-  "goddess.body": "According to the spiritual practice followed here, guidance is received through the grace of Goddess Tripurasundari and conveyed through the Spiritual Guide. Those seeking guidance are not required to describe their personal concern through this website.",
+  "goddess.body": "According to the spiritual practice followed here, guidance is received through the grace of Goddess Tripurasundari. Those seeking guidance are not required to describe their personal concern through this website.",
 
   "offering.title": "Offerings",
-  "offering.body": "Any offering made after receiving personal spiritual guidance is entirely voluntary and left to the seeker's discretion. There is no payment required to submit a request through this website.",
+  "offering.body": "Any offering made after receiving personal spiritual guidance is entirely voluntary. There is no payment required to submit a request through this website.",
 
   "cta.title": "Ready to reach out?",
   "cta.body": "If you wish to place your details for consideration, you may submit them privately below.",
@@ -42,6 +42,7 @@
   "form.intro": "You do not need to describe your question or concern. Please provide the details below. Your information will be submitted privately to the Spiritual Guidance Team.",
   "form.fullName": "Full Name",
   "form.mobileNumber": "Mobile Number",
+  "form.place": "Place",
   "form.maleDeity": "Male Deity / God Name",
   "form.femaleDeity": "Female Deity / Goddess Name",
   "form.submit": "Submit Request",
@@ -65,8 +66,8 @@
   "howItWorks.body4": "Please understand that submitting a request does not guarantee that you will be contacted.",
 
   "privacy.title": "Privacy",
-  "privacy.body1": "This website collects only what is needed to consider your request for spiritual guidance: your full name, mobile number, and your chosen deities.",
-  "privacy.body2": "We do not collect your email, address, date of birth, gender, or location, and we do not use analytics or advertising trackers on this site.",
+  "privacy.body1": "This website collects only what is needed to consider your request for spiritual guidance: your full name, mobile number, place, and your chosen deities.",
+  "privacy.body2": "We do not collect your email, exact address, date of birth, gender, or precise GPS location, and we do not use analytics or advertising trackers on this site.",
   "privacy.body3": "Your details are visible only to the three members of the Spiritual Guidance Team and are stored securely.",
 
   "contact.title": "Contact",

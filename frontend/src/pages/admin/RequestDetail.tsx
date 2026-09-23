@@ -10,6 +10,7 @@ interface RequestDetail {
   reference_number: string;
   full_name: string;
   mobile_number: string;
+  place: string;
   male_deity: string;
   female_deity: string;
   status: string;
@@ -87,6 +88,9 @@ export function AdminRequestDetail() {
 
         <dt className="text-ink/50">{t("form.mobileNumber")}</dt>
         <dd className="text-ink">{record.mobile_number}</dd>
+
+        <dt className="text-ink/50">{t("form.place")}</dt>
+        <dd className="text-ink">{record.place}</dd>
 
         <dt className="text-ink/50">{t("form.maleDeity")}</dt>
         <dd className="text-ink">{record.male_deity}</dd>
