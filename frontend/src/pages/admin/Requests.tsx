@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "../../i18n";
 import { useAuth } from "../../services/auth";
 import { api } from "../../services/api";
@@ -25,9 +25,11 @@ const STATUSES = [
 export function AdminRequests() {
   const { t } = useTranslation();
   const { token } = useAuth();
+  const location = useLocation();
   const [requests, setRequests] = useState<RequestSummary[]>([]);
   const [filter, setFilter] = useState<string>("");
   const [loading, setLoading] = useState(true);
+  const [successMessage, setSuccessMessage] = useState("");
 
   useEffect(() => {
     if (!token) return;
@@ -37,6 +39,13 @@ export function AdminRequests() {
       .then(setRequests)
       .finally(() => setLoading(false));
   }, [token, filter]);
+
+  useEffect(() => {
+    const message = (location.state as { successMessage?: string } | null)?.successMessage;
+    if (message) {
+      setSuccessMessage(message);
+    }
+  }, [location.state]);
 
   return (
     <section className="mx-auto max-w-5xl px-6 py-12">
@@ -58,6 +67,12 @@ export function AdminRequests() {
           </select>
         </label>
       </div>
+
+      {successMessage && (
+        <p className="mb-4 rounded-md border border-green-200 bg-green-50 px-3 py-2 text-sm font-medium text-green-700">
+          {successMessage}
+        </p>
+      )}
 
       {loading ? (
         <p className="font-body text-sm text-ink/50">…</p>

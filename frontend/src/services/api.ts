@@ -61,6 +61,9 @@ export const api = {
 
   getRequest: (token: string, id: number) => request<any>(`/api/admin/requests/${id}`, {}, token),
 
+  deleteRequest: (token: string, id: number) =>
+    request<void>(`/api/admin/requests/${id}`, { method: "DELETE" }, token),
+
   updateStatus: (token: string, id: number, status: string) =>
     request<any>(
       `/api/admin/requests/${id}/status`,

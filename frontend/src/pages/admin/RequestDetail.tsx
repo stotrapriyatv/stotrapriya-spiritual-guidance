@@ -1,8 +1,8 @@
 import { useEffect, useState, useCallback } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "../../i18n";
 import { useAuth } from "../../services/auth";
-import { api } from "../../services/api";
+import { api, ApiError } from "../../services/api";
 import { StatusBadge } from "../../components/StatusBadge";
 
 interface RequestDetail {
@@ -36,11 +36,15 @@ export function AdminRequestDetail() {
   const { t } = useTranslation();
   const { token } = useAuth();
   const { id } = useParams();
+  const navigate = useNavigate();
   const requestId = Number(id);
 
   const [record, setRecord] = useState<RequestDetail | null>(null);
   const [activity, setActivity] = useState<ActivityEntry[]>([]);
   const [updating, setUpdating] = useState(false);
+  const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+  const [deleteError, setDeleteError] = useState("");
 
   const load = useCallback(async () => {
     if (!token || !requestId) return;
@@ -66,6 +70,36 @@ export function AdminRequestDetail() {
       setActivity(a);
     } finally {
       setUpdating(false);
+    }
+  }
+
+  async function handleDeleteRequest() {
+    if (!token || !requestId) return;
+
+    setDeleting(true);
+    setDeleteError("");
+
+    try {
+      await api.deleteRequest(token, requestId);
+      navigate("/admin/requests", {
+        replace: true,
+        state: { successMessage: t("admin.detail.deleteSuccess") },
+      });
+    } catch (err) {
+      if (err instanceof ApiError) {
+        if (err.status === 404) {
+          setDeleteError(t("admin.detail.deleteErrorNotFound"));
+        } else if (err.status === 401 || err.status === 403) {
+          setDeleteError(t("admin.detail.deleteErrorAuth"));
+        } else {
+          setDeleteError(t("admin.detail.deleteError"));
+        }
+      } else {
+        setDeleteError(t("admin.detail.deleteError"));
+      }
+    } finally {
+      setDeleting(false);
+      setDeleteConfirmOpen(false);
     }
   }
 
@@ -113,7 +147,45 @@ export function AdminRequestDetail() {
             {t(a.labelKey)}
           </button>
         ))}
+
+        <button
+          type="button"
+          onClick={() => setDeleteConfirmOpen(true)}
+          className="rounded-arch border border-red-300 bg-red-50 px-4 py-2 text-sm font-medium text-red-700 hover:bg-red-100 transition-colors"
+        >
+          {t("admin.detail.delete")}
+        </button>
       </div>
+
+      {deleteError && <p className="mb-4 text-sm font-medium text-red-700">{deleteError}</p>}
+
+      {deleteConfirmOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-ink/30 px-4">
+          <div className="w-full max-w-md rounded-xl border border-ink/10 bg-paper p-5 shadow-lg">
+            <h2 className="font-display text-xl text-maroon-deep mb-3">{t("admin.detail.deleteTitle")}</h2>
+            <p className="font-body text-sm text-ink/70 leading-relaxed mb-5">
+              {t("admin.detail.deleteDescription")}
+            </p>
+            <div className="flex justify-end gap-3">
+              <button
+                type="button"
+                onClick={() => setDeleteConfirmOpen(false)}
+                className="rounded-arch border border-ink/20 px-4 py-2 text-sm font-medium text-ink/70 hover:bg-ink/5"
+              >
+                {t("admin.detail.deleteCancel")}
+              </button>
+              <button
+                type="button"
+                disabled={deleting}
+                onClick={handleDeleteRequest}
+                className="rounded-arch border border-red-300 bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700 disabled:opacity-60"
+              >
+                {deleting ? t("admin.detail.deleting") : t("admin.detail.deleteConfirm")}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <h2 className="font-display text-lg text-maroon-deep mb-3">{t("admin.detail.activity")}</h2>
       <ul className="space-y-2 border-l-2 border-ink/10 pl-4">

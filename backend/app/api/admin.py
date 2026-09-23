@@ -53,6 +53,17 @@ def get_request(request_id: int, db: Session = Depends(get_db)):
     return record
 
 
+@router.delete("/requests/{request_id}", status_code=status.HTTP_204_NO_CONTENT)
+def delete_request(request_id: int, db: Session = Depends(get_db)):
+    record = db.get(GuidanceRequest, request_id)
+    if record is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Request not found")
+
+    db.delete(record)
+    db.commit()
+    return None
+
+
 @router.patch("/requests/{request_id}/status", response_model=GuidanceRequestDetail)
 def update_status(
     request_id: int,
